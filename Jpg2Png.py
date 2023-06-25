@@ -11,9 +11,9 @@ if jpgCnt > 0:
     for jpgFile in jpgFiles:
         jpgName = os.path.basename(jpgFile)
         pngName = jpgName.replace("jpg", "png")
+        print(f"{jpgName}  ------>  {pngName}\n")
         image = Image.open(jpgName)
         image.save(pngName)
-        print(f"{jpgName} 转化为 {pngName}\n")
 else:
     print("当前文件夹中没有jpg")
 
