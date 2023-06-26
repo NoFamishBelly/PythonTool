@@ -4,17 +4,17 @@ import os
 from docx2pdf import convert
 
 # 搜索当前文件夹中的docx/doc
-wordFiles = glob.glob("*.docx") + glob.glob("*.doc")
-wordCnt = len(wordFiles)
+word_files = glob.glob("*.docx") + glob.glob("*.doc")
+word_cnt = len(word_files)
 
 # 开始转换
-if wordCnt > 0:
-    print(f"当前文件夹有{wordCnt}个word文档(docx/doc)")
-    for wordFile in wordFiles:
-        wordName = os.path.basename(wordFile)
-        pdfName = wordName.replace(".docx", ".pdf") if wordName.endswith(".docx") else wordName.replace(".doc", ".pdf")
-        print(f"{wordName}  ------>  {pdfName}\n")
-        convert(wordName, pdfName)
+if word_cnt > 0:
+    print(f"当前文件夹有{word_cnt}个word文档(docx/doc)")
+    for word_file in word_files:
+        word_name = os.path.basename(word_file)
+        pdf_name = word_name.replace(".docx", ".pdf") if word_name.endswith(".docx") else word_name.replace(".doc", ".pdf")
+        print(f"{word_name}  ------>  {pdf_name}\n")
+        convert(word_name, pdf_name)
 else:
     print("当前文件夹中没有docx/doc文档")
 

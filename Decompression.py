@@ -6,45 +6,45 @@ import rarfile
 
 
 # 解压zip
-def decompressZip(zipFileName, decompressFileName):
-    with zipfile.ZipFile(zipFileName, "r") as zipRef:
-        for fileInfo in zipRef.infolist():
+def decompress_zip(zip_file_name, decompress_file_name):
+    with zipfile.ZipFile(zip_file_name, "r") as zip_ref:
+        for file_info in zip_ref.infolist():
             try:
-                fileInfo.filename = fileInfo.filename.encode('cp437').decode('utf-8')
+                file_info.filename = file_info.filename.encode('cp437').decode('utf-8')
             except UnicodeDecodeError:
-                fileInfo.filename = fileInfo.filename.encode('cp437').decode('gbk')
-            zipRef.extract(fileInfo, decompressFileName)
+                file_info.filename = file_info.filename.encode('cp437').decode('gbk')
+            zip_ref.extract(file_info, decompress_file_name)
 
 
 # 解压rar
-def decompressRar(rarFileName, decompressFileName):
-    with rarfile.RarFile(rarFileName, "r") as rarRef:
-        for fileInfo in rarRef.infolist():
+def decompress_rar(rar_file_name, decompress_file_name):
+    with rarfile.RarFile(rar_file_name, "r") as rar_ref:
+        for file_info in rar_ref.infolist():
             try:
-                fileInfo.filename = fileInfo.filename.encode('cp437').decode('utf-8')
+                file_info.filename = file_info.filename.encode('cp437').decode('utf-8')
             except UnicodeDecodeError:
-                fileInfo.filename = fileInfo.filename.encode('cp437').decode('gbk')
-        rarRef.extract(decompressFileName)
+                file_info.filename = file_info.filename.encode('cp437').decode('gbk')
+        rar_ref.extract(decompress_file_name)
 
 
 # 搜索当前文件中的zip/rar
-compressFiles = glob.glob("*.zip") + glob.glob("*.rar")
-compressCnt = len(compressFiles)
+compress_files = glob.glob("*.zip") + glob.glob("*.rar")
+compress_cnt = len(compress_files)
 
 # 开始解压
-if compressCnt > 0:
-    print(f"当前文件夹有{compressCnt}个压缩文件(zip/rar)")
-    for compressFile in compressFiles:
-        compressName = os.path.basename(compressFile)
-        decompressName = compressName.replace(".zip", "") if compressName.endswith(".zip") else compressName.replace(
+if compress_cnt > 0:
+    print(f"当前文件夹有{compress_cnt}个压缩文件(zip/rar)")
+    for compress_file in compress_files:
+        compress_name = os.path.basename(compress_file)
+        decompress_name = compress_name.replace(".zip", "") if compress_name.endswith(".zip") else compress_name.replace(
             ".rar", "")
-        print(f"{compressName}  ------>  {decompressName}")
-        if compressName.endswith(".zip"):
+        print(f"{compress_name}  ------>  {decompress_name}")
+        if compress_name.endswith(".zip"):
             # zip
-            decompressZip(compressName, decompressName)
+            decompress_zip(compress_name, decompress_name)
         else:
             # rar
-            decompressRar(compressName, decompressName)
+            decompress_rar(compress_name, decompress_name)
 else:
     print("当前文件夹中没有zip/rar文档")
 
